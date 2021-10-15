@@ -1,0 +1,72 @@
+import kivy
+from kivy.app import App
+from kivy.core import text
+from kivy.uix.label import Label
+from kivy.uix.textinput import TextInput
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.button import Button
+
+
+
+class MyGridLayout(GridLayout):
+    #initialize infinite keywords
+    def __init__(self, **kwargs):
+        #call grid layout constructor
+        super(MyGridLayout, self).__init__(**kwargs)
+
+        #set column
+        self.cols = 2
+       
+
+        #Add widget
+        self.add_widget(Label (text="Name :"))
+        #Add input box
+        self.name = TextInput(multiline=True)
+        self.add_widget(self.name) 
+
+
+        self.add_widget(Label(text="Roll :"))
+        #Add input box
+        self.roll = TextInput(multiline=False)
+        self.add_widget(self.roll)
+
+
+        self.add_widget(Label(text="ID :"))
+        #Add input box
+        self.id = TextInput(multiline=False)
+        self.add_widget(self.id)
+
+
+        #create a button
+        self.button = Button(text="Submit", font_size=52)
+        #Bind button
+        self.button.bind(on_press=self.press)
+        self.add_widget(self.button)
+        
+    
+    #Create a function for button    
+    def press(self, instance):
+        name = self.name.text
+        roll = self.roll.text
+        id = self.id.text
+
+        self.add_widget(Label(text=f"Your Name {name}, Roll {roll}, ID {id}"))
+
+        #remove input data
+        self.name.text = ""
+        self.roll.text = ""
+        self.id.text = ""
+       
+        
+      
+
+
+
+class FirstApp(App):
+    def build(self):
+        return MyGridLayout()
+
+
+if __name__== '__main__':
+    FirstApp().run()
+     
